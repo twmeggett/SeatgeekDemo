@@ -2,12 +2,12 @@
 
 A simple demo featuring: 
 
-*. ES6
-*. React + Redux
-*. Webpack
-*. API communication(Seatgeek + Facebook)
-*. Responsive Design (Bootstrap + Media Queries)
-*. LESS
+1. ES6
+2. React + Redux
+3. Webpack
+4. API communication(Seatgeek + Facebook)
+5. Responsive Design (Bootstrap + Media Queries)
+6. LESS
 
 ## To Get Started -
 
