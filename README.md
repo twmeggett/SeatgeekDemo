@@ -1,4 +1,4 @@
-# SeatgeekDemo
+# Seatgeek Demo
 
 A simple demo featuring: 
 
