@@ -1,0 +1,59 @@
+@import "./base.less";
+
+.event-details {
+	h2 {
+		font-size: 23px;
+	}
+
+	p {
+		margin-bottom: 5px;
+	}
+
+	i {
+		margin-right: 5px;
+	}
+
+	.top-content {
+		background-color: lightgray;
+	}
+
+	.info-container{
+		padding: 10px;
+	}
+
+	.social-container {
+		height: 50px; 
+		width: 100px;
+		margin-top: 5px;
+
+		.fb-share-button a{
+			padding: 7px !important;
+			color: white;
+			text-decoration: none;
+			background-color: @facebook-color;
+			width: 125px;
+			height: 75px;
+		}
+	}
+}
+
+@media (max-width: 768px) { 
+	.event-details {	
+		width: @full-screen-width;
+		margin: 0 auto;
+
+		img {
+			width: @full-screen-width;
+		}
+
+		.info-container{
+			margin-top: 8px;
+			padding: 10px;
+		}
+
+		.sub-info {
+			margin-top: 50px;
+			min-height: 200px;
+		}
+	}
+}

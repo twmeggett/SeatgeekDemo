@@ -1,0 +1,59 @@
+@import "./base.less";
+
+.event-list {	
+	width: @event-img-width;
+	margin: 0 auto;
+	padding: 5px;
+	cursor: pointer;
+
+	#event-list-base {
+		width: @event-img-width;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		border-radius: @border-radius;
+	}
+
+	h2 {
+		#event-list-base();
+		border-radius: 0;
+		font-size: @sub-header-font-size;
+	}
+
+	img {
+		#event-list-base();
+		height:@event-img-height;
+		background-color: #8a8888;
+	}
+
+	p {
+		#event-list-base();
+		width: inherit;
+	}
+
+	.info-container {
+		#event-list-base();
+		height:@event-img-height;
+		position: absolute;
+		color: white;
+		
+		.info-content {
+			border-top-left-radius: 0;
+			border-top-right-radius: 0;
+			height: @event-img-height * 0.35;
+			width: 100%;
+			position: absolute;
+			bottom: 0;
+			padding: 10px;
+			background-color: rgba(0, 0, 0, 0.4);
+
+			p {
+				margin-bottom: 8px;
+			}
+		}
+	}
+
+	.date {
+		text-align: right;
+	}
+}
