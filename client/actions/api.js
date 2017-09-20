@@ -78,7 +78,7 @@ export function fetchEvent(id) {
 			)
 			.then((json) => {
 				console.log(json)
-				document.documentElement.scrollTop = 0;
+				document.body.scrollTop = document.documentElement.scrollTop = 0;
 				setTimeout(function () {
 					dispatch(receiveEvent(json))
 				}, 3000);
