@@ -1,6 +1,12 @@
 @import "./base.less";
 
 .event-details {
+	img {
+		background-repeat: no-repeat;
+	    background-attachment: fixed;
+	    background-position: center; 
+	}
+
 	h2 {
 		font-size: 23px;
 	}
@@ -13,13 +19,13 @@
 		margin-right: 5px;
 	}
 
-	a {
-		color: black;
-		text-decoration: none;
-	}
-
 	.top-content {
 		background-color: lightgray;
+
+		a {
+			color: black;
+			text-decoration: none;
+		}
 	}
 
 	.info-container{
@@ -38,6 +44,18 @@
 			background-color: @facebook-color;
 			width: 125px;
 			height: 75px;
+		}
+	}
+
+	.sub-info {
+		.performers {
+			a {
+				color: black;
+				text-decoration: none;
+				border-radius: 10px;
+			    border: 1px solid #e62117;
+			    padding: 6px;
+			}
 		}
 	}
 }

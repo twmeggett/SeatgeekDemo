@@ -4,6 +4,7 @@ import YouTubeLink from './YouTubeLink.jsx'
 import Loading from './Loading.jsx'
 import formatDisplayDate from '../util/formatDisplayDate'
 import staticMapSrc from '../util/staticMapSrc'
+import '../images/no_image.jpg';
 import '../styles/event-details-style.less'
 require('font-awesome-webpack');
 
@@ -80,7 +81,7 @@ const Event = ({ event }) => {
               </a>
             </div>
 
-            <div className="col-xs-12 col-md-5 offset-md-2 col-lg-4 offset-lg-1 sub-info">
+            <div className="col-xs-12 col-md-5 offset-md-2 col-lg-4 offset-lg-1 performers">
               <h2>Performers</h2>
               {event.performers.map((performer, index) => (
                 <YouTubeLink key={'performer' + index} name={performer.name} />
