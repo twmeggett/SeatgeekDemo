@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Event from './Event.jsx'
+import Loading from './Loading.jsx'
 import '../styles/event-list-style.less'
 
 const Events = ({ events, onEventClick }) => {
@@ -17,7 +18,7 @@ const Events = ({ events, onEventClick }) => {
       </div>
     )
   }
-  return (<div>Loading...</div>)
+  return <Loading />
 }
 
 Events.propTypes = {

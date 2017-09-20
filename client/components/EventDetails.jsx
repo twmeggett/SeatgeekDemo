@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import YouTubeLink from './YouTubeLink.jsx'
+import Loading from './Loading.jsx'
 import formatDisplayDate from '../util/formatDisplayDate'
 import staticMapSrc from '../util/staticMapSrc'
 import '../styles/event-details-style.less'
-require("font-awesome-webpack");
+require('font-awesome-webpack');
 
 //offsets aren't working in bootstrap for some reason 
 const Event = ({ event }) => {
@@ -13,16 +14,20 @@ const Event = ({ event }) => {
       <div className="event-details">
         <div className="container top-content">
           <div className="row">
-            
+
             <div className="col-md-1 col-lg-2"></div>
 
             <div className="col-xs-12 col-md-5 col-lg-4">
-              <img src={event.performers[0].image} />
+              <a href={event.url} target="_blank">
+                <img src={event.performers[0].image} />
+              </a>
             </div>
 
             <div className="col-xs-12 col-md-5 col-lg-4">
               <div className="info-container">
-              <h2>{event.title}</h2>
+                <a href={event.url} target="_blank">
+                  <h2>{event.title}</h2>
+                </a>
                 <div className="info-content">
                   <p className="venue">
                     <i className="fa fa-building-o" aria-hidden="true"></i>
@@ -46,15 +51,15 @@ const Event = ({ event }) => {
 
             <div className="col-xs-12 col-md-5 col-lg-4">
               <div className="social-container">
-                <div 
-                  className="fb-share-button" 
-                  data-href={event.url} 
-                  data-layout="button_count" 
-                  data-size="large" 
+                <div
+                  className="fb-share-button"
+                  data-href={event.url}
+                  data-layout="button_count"
+                  data-size="large"
                   data-mobile-iframe="true">
-                    <a className="fb-xfbml-parse-ignore" 
-                      target="_blank" 
-                      href={"https://www.facebook.com/sharer/sharer.php?u=" + event.url}>
+                    <a className="fb-xfbml-parse-ignore"
+                      target="_blank"
+                      href={'https://www.facebook.com/sharer/sharer.php?u=' + event.url}>
                         <i className="fa fa-facebook-square" aria-hidden="true"> Share</i>
                     </a>
                 </div>
@@ -66,7 +71,7 @@ const Event = ({ event }) => {
 
         <div className="container sub-info">
           <div className="row">
-            
+   
             <div className="col-md-1 col-lg-2"></div>
 
             <div className="col-xs-12 col-md-5 col-lg-4">
@@ -87,9 +92,7 @@ const Event = ({ event }) => {
       </div>
     )
   }
-  return (
-    <div><p>Loading</p></div>
-  )
+  return <Loading />
 }
 
 Event.propTypes = {
@@ -112,9 +115,9 @@ Event.propTypes = {
           lat: PropTypes.number,
           lon: PropTypes.number,
         url: PropTypes.string,
-        })
+        }),
     }),
-  })
+  }),
 }
 
 export default Event

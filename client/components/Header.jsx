@@ -3,7 +3,9 @@ import '../styles/header.less'
 
 const Header = () => (
   <div className="header">
-    <h2>SeatGeek Events Demo</h2>
+	<a href="/">
+		<h2>SeatGeek Events Demo</h2>
+    </a>
   </div>
 )
 

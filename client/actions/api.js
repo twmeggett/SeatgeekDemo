@@ -78,7 +78,9 @@ export function fetchEvent(id) {
 			)
 			.then((json) => {
 				console.log(json)
-				dispatch(receiveEvent(json))
+				setTimeout(function () {
+					dispatch(receiveEvent(json))
+				}, 3000);
 	    })
 	}
 }

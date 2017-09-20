@@ -27,7 +27,9 @@ const mapDispatchToProps = dispatch => {
 
 class EventsListWrapper extends React.Component {
   componentDidMount() {
-    this.props.fetchInitEvents()
+    if (this.props.events.length === 0) {
+      this.props.fetchInitEvents()
+    }
   }
 
   render() {
