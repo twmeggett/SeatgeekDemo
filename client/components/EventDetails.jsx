@@ -76,7 +76,7 @@ const Event = ({ event }) => {
   
             <div className="col-md-1 col-lg-2"></div>
 
-            <div className="col-xs-12 col-md-5 col-lg-4">
+            <div className="col-xs-12 col-md-5 col-lg-4 map">
               <a href={event.venue.url} target="_blank">
                 <img src={staticMapSrc(event)} />
               </a>
