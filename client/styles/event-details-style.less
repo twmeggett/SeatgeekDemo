@@ -1,12 +1,6 @@
 @import "./base.less";
 
 .event-details {
-	img {
-		background-repeat: no-repeat;
-	    background-attachment: fixed;
-	    background-position: center; 
-	}
-
 	h2 {
 		font-size: 23px;
 	}
@@ -17,6 +11,22 @@
 
 	i {
 		margin-right: 5px;
+	}
+
+	.images {
+		position: relaitve;
+	}
+
+	.main-img {
+		height: @event-img-height;
+		width: @event-img-width;
+		position: absolute;
+    	left: 15px;
+	}
+
+	.backup-img {
+		height: @event-img-height;
+		width: @event-img-width;
 	}
 
 	.top-content {
@@ -48,7 +58,11 @@
 	}
 
 	.sub-info {
-		.performers {
+		margin-top: 10px;
+
+		.youtube-link {
+			margin-bottom: 13px;
+
 			a {
 				color: black;
 				text-decoration: none;
@@ -65,7 +79,13 @@
 		width: @full-screen-width;
 		margin: 0 auto;
 
-		img {
+		.main-img {
+			width: @full-screen-width;
+			position: absolute;
+	    	left: 15px;
+		}
+
+		.backup-img {
 			width: @full-screen-width;
 		}
 
@@ -77,6 +97,10 @@
 		.sub-info {
 			margin-top: 50px;
 			min-height: 200px;
+		}
+
+		.performers {
+			margin-top: 50px;
 		}
 	}
 }

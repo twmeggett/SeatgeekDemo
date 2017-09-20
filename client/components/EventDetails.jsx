@@ -4,7 +4,7 @@ import YouTubeLink from './YouTubeLink.jsx'
 import Loading from './Loading.jsx'
 import formatDisplayDate from '../util/formatDisplayDate'
 import staticMapSrc from '../util/staticMapSrc'
-import '../images/no_image.jpg';
+import NoImage from '../images/no_image.jpg';
 import '../styles/event-details-style.less'
 require('font-awesome-webpack');
 
@@ -18,9 +18,10 @@ const Event = ({ event }) => {
 
             <div className="col-md-1 col-lg-2"></div>
 
-            <div className="col-xs-12 col-md-5 col-lg-4">
+            <div className="col-xs-12 col-md-5 col-lg-4 images">
               <a href={event.url} target="_blank">
-                <img src={event.performers[0].image} />
+                <img src="http://vollrath.com/ClientCss/images/VollrathImages/No_Image_Available.jpg" className="backup-img" />
+                <img src={event.performers[0].image} className="main-img" />
               </a>
             </div>
 
@@ -72,7 +73,7 @@ const Event = ({ event }) => {
 
         <div className="container sub-info">
           <div className="row">
-   
+  
             <div className="col-md-1 col-lg-2"></div>
 
             <div className="col-xs-12 col-md-5 col-lg-4">
