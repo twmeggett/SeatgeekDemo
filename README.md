@@ -9,6 +9,7 @@ A simple demo featuring:
 5. Responsively Designed for three device sizes (Bootstrap + Media Queries)
 6. LESS (CSS Preprocessor)
 7. Devtools (Redux Devtools, EsLint, Redux Thunk, Redux Logger, React Router Redux)
+8. Jest (Creating and running tests)
 
 Pancake Loading Screen by Tim Holman - https://codepen.io/collection/HtAne/
 
