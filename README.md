@@ -21,3 +21,10 @@ npm install
 npm run start
 
 
+## To Run Tests -
+
+npm test
+
+## To Continuously Run Tests
+
+npm run test:watch
