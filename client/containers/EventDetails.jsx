@@ -23,11 +23,15 @@ const mapDispatchToProps = dispatch => {
 
 class EventDetailsWrapper extends React.Component {
   componentDidMount() {
+    const urlId = location.pathname.split('/')[2];
     document.body.scrollTop = document.documentElement.scrollTop = 0;
-    this.props.requestEvent();
-    setTimeout(() => {
-      this.props.fetchEvent(location.pathname.split('/')[2])
-    }, 2500);
+
+    if (this.props.event.id != urlId) {
+      this.props.requestEvent();
+      setTimeout(() => {
+        this.props.fetchEvent(urlId)
+      }, 2500);
+    }
   }
 
   render() {
