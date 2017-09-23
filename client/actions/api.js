@@ -1,17 +1,16 @@
-const CLIENT_ID = 'NTMxNDQzOXwxNDcwMDkxNzg4';
 import fetch from 'isomorphic-fetch';
 import attachQueryParams from '../util/attachQueryParams';
 import removeTimeZoneFromISO from '../util/removeTimeZoneFromISO';
 
 export const REQUEST_EVENTS = 'REQUEST_EVENTS';
-function requestEvents() {
+export function requestEvents() {
 	return {
 		type: REQUEST_EVENTS,
 	}
 }
 
 export const RECEIVE_EVENTS = 'RECEIVE_EVENTS';
-function receiveEvents(events) {
+export function receiveEvents(events) {
 	return {
 		type: RECEIVE_EVENTS,
 		events,
@@ -19,14 +18,14 @@ function receiveEvents(events) {
 }
 
 export const REQUEST_EVENT = 'REQUEST_EVENT';
-function requestEvent() {
+export function requestEvent() {
 	return {
 		type: REQUEST_EVENT,
 	}
 }
 
 export const RECEIVE_EVENT = 'RECEIVE_EVENT';
-function receiveEvent(event) {
+export function receiveEvent(event) {
 	return {
 		type: RECEIVE_EVENT,
 		event,
@@ -34,6 +33,7 @@ function receiveEvent(event) {
 }
 
 export function fetchEvents(location) {
+	const CLIENT_ID = 'NTMxNDQzOXwxNDcwMDkxNzg4';
 	const url = 'https://api.seatgeek.com/2/events';
 	const range = 10;
 	let queryParams = {
@@ -64,6 +64,7 @@ export function fetchEvents(location) {
 }
 
 export function fetchEvent(id) {
+	const CLIENT_ID = 'NTMxNDQzOXwxNDcwMDkxNzg4';
 	const url = `https://api.seatgeek.com/2/events/${id}`;
 	const queryParams = {
 		client_id: CLIENT_ID,
@@ -78,10 +79,7 @@ export function fetchEvent(id) {
 			)
 			.then((json) => {
 				console.log(json)
-				document.body.scrollTop = document.documentElement.scrollTop = 0;
-				setTimeout(function () {
-					dispatch(receiveEvent(json))
-				}, 3000);
+				dispatch(receiveEvent(json))
 	    })
 	}
 }
