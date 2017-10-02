@@ -14,6 +14,7 @@ const Event = ({ event }) => {
     return (
       <div className="event-details">
         <div className="container top-content">
+          <img src={event.performers[0].image} className="background-img" />
           <div className="row">
 
             <div className="col-md-1 col-lg-2"></div>
@@ -73,7 +74,7 @@ const Event = ({ event }) => {
 
         <div className="container sub-info">
           <div className="row">
-  
+
             <div className="col-md-1 col-lg-2"></div>
 
             <div className="col-xs-12 col-md-5 col-lg-4 map">

@@ -32,19 +32,42 @@ export function receiveEvent(event) {
 	}
 }
 
-export function fetchEvents(location) {
+export const LIMIT_RECEIVED = 'LIMIT_RECEIVED';
+export function limitReceived() {
+	return {
+		type: LIMIT_RECEIVED,
+	}
+}
+
+export const CLEAR_EVENTS = 'CLEAR_EVENTS';
+export function clearEvents() {
+	return {
+		type: CLEAR_EVENTS,
+	}
+}
+
+export const UPDATE_LOCATION = 'UPDATE_LOCATION';
+export function updateLocation(location) {
+	return {
+		type: UPDATE_LOCATION,
+		location,
+	}
+}
+
+export function fetchEvents(page, latLon) {
 	const CLIENT_ID = 'NTMxNDQzOXwxNDcwMDkxNzg4';
 	const url = 'https://api.seatgeek.com/2/events';
 	const range = 10;
 	let queryParams = {
+		page,
 		client_id: CLIENT_ID,
 		range: `${range}mi`,
 		'datetime_utc.gte': removeTimeZoneFromISO(new Date()),
 		'listing_count.gt': 0,
 	}
 
-	if (location && typeof location === 'object') {
-		queryParams = { ...queryParams, lat: location.lat, lon: location.lon }
+	if (latLon && typeof latLon === 'object') {
+		queryParams = { ...queryParams, lat: latLon.lat, lon: latLon.lon }
 	} else {
 		queryParams = { ...queryParams, geoip: true }
 	}
@@ -57,8 +80,13 @@ export function fetchEvents(location) {
 				error => console.log('An error occured.', error)
 			)
 			.then((json) => {
-				console.log(json)
-				dispatch(receiveEvents(json.events))
+				if (json) {
+					console.log(json)
+					if (json.meta.total === json.events.length) {
+						dispatch(limitReceived())
+					}
+					dispatch(receiveEvents(json.events))
+				}
 	    })
 	}
 }

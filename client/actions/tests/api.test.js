@@ -48,6 +48,35 @@ describe('receiveEvent', () => {
   })
 })
 
+describe('limitReceived', () => {
+  it('should create an action to alert that limit has been received', () => {
+    const expectedAction = {
+      type: actions.LIMIT_RECEIVED,
+    }
+    expect(actions.limitReceived()).toEqual(expectedAction)
+  })
+})
+
+describe('clearEvents', () => {
+  it('should create an action to clear the events', () => {
+    const expectedAction = {
+      type: actions.CLEAR_EVENTS,
+    }
+    expect(actions.clearEvents()).toEqual(expectedAction)
+  })
+})
+
+describe('updateLocation', () => {
+  it('should create an action to update location', () => {
+    const location = { lat: 10, lon: 10 }
+    const expectedAction = {
+      type: actions.UPDATE_LOCATION,
+      location,
+    }
+    expect(actions.updateLocation(location)).toEqual(expectedAction)
+  })
+})
+
 describe('fetchEvents', () => {
   afterEach(() => {
     nock.cleanAll()
@@ -55,10 +84,14 @@ describe('fetchEvents', () => {
 
   it('creates REQUEST_EVENTS then RECIEVE_EVENTS when fetching events has been done', () => {
 	const testEvents = [{ test: true }, { test: true }, { test: true }]
+  const meta = {
+    total: 100,
+  }
 	const CLIENT_ID = 'NTMxNDQzOXwxNDcwMDkxNzg4';
 	const url = 'https://api.seatgeek.com/2';
 	const range = 10;
 	const queryParams = {
+    page: 1,
 		client_id: CLIENT_ID,
 		range: `${range}mi`,
 		'datetime_utc.gte': removeTimeZoneFromISO(new Date()),
@@ -69,7 +102,7 @@ describe('fetchEvents', () => {
     nock(url)
       .get('/events')
       .query(queryParams)
-      .reply(200, { events: testEvents })
+      .reply(200, { events: testEvents, meta })
 
     const expectedActions = [
       { type: actions.REQUEST_EVENTS },
@@ -77,7 +110,7 @@ describe('fetchEvents', () => {
     ]
     const store = mockStore({ isFetching: false, events: [] })
 
-    return store.dispatch(actions.fetchEvents()).then(() => {
+    return store.dispatch(actions.fetchEvents(1)).then(() => {
       // return of async actions
       expect(store.getActions()).toEqual(expectedActions)
     })

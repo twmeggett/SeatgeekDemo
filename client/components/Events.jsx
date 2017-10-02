@@ -1,24 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Event from './Event.jsx'
-import Loading from './Loading.jsx'
 import '../styles/event-list-style.less'
 
 const Events = ({ events, onEventClick }) => {
-  if (events) {
-    return (
-      <div className="container">
-        <div className="row">
-          {events.map((event) => (
-            <div key={event.id} className="col-xs-12 col-lg-4 col-md-6">
-              <Event key={event.id} event={event} onEventClick={onEventClick} />
-            </div>
-          ))}
+  return (
+    <div className="row event-list">
+      {events.map((event) => (
+        <div key={event.id} className="col-xs-12 col-lg-4 col-md-6">
+          <Event key={event.id} event={event} onEventClick={onEventClick} />
         </div>
-      </div>
-    )
-  }
-  return <Loading />
+      ))}
+    </div>
+  )
 }
 
 Events.propTypes = {

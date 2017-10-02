@@ -12,6 +12,7 @@ A simple demo featuring:
 8. Jest (Creating and running tests)
 
 Pancake Loading Screen by Tim Holman - https://codepen.io/collection/HtAne/
+Loading Icon by Tobias Ahlin - http://tobiasahlin.com/spinkit/
 
 ## To Get Started -
 

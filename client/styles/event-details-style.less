@@ -30,11 +30,21 @@
 	}
 
 	.top-content {
-		background-color: lightgray;
+		position: relative;
+		height: 275px;
+		overflow: hidden;
 
 		a {
 			color: black;
 			text-decoration: none;
+		}
+
+		.background-img {
+			height: auto;
+			width: 100%;
+			position: absolute;
+			z-index: 0;
+			filter:opacity(15%) blur(5px);
 		}
 	}
 
@@ -59,8 +69,7 @@
 
 	.sub-info {
 		.sub-info-margins {
-			margin-bottom: 18px;
-			margin-left: 10px;
+			margin: 0 10px 18px 10px;
 		}
 
 		margin-top: 30px;
@@ -71,14 +80,11 @@
 
 		.youtube-link {
 			.sub-info-margins();
-
-			a {
-				color: black;
-				text-decoration: none;
-				border-radius: 10px;
-			    border: 1px solid #e62117;
-			    padding: 6px;
-			}
+			color: black;
+			text-decoration: none;
+			border-radius: 10px;
+		    border: 1px solid #e62117;
+		    padding: 6px;
 		}
 	}
 }
@@ -87,6 +93,15 @@
 	.event-details {	
 		width: @full-screen-width;
 		margin: 0 auto;
+
+		.top-content {
+			@top-content-height: 425px;
+			height: @top-content-height;
+
+			.background-img {
+				height: @top-content-height;
+			}
+		}
 
 		.main-img {
 			width: @full-screen-width;

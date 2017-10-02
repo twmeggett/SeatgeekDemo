@@ -1,0 +1,54 @@
+@import "./base.less";
+
+.subHeader {
+	width: 80%;
+	height: 40px;
+	margin: 40px auto 70px auto;
+	border-radius: 10px;
+	border: 2px solid @header-color;
+	padding: 0 5px;
+
+	i {
+		font-size: 20px;
+		margin-right: 5px;
+		float: right;
+	}
+
+	input {
+		border: 0;
+		&:focus {
+			outline: none;
+		}
+	}
+
+	.currentLocationBtn {
+		text-align: center;
+
+		button {
+			background: none;
+			color: @header-color;
+			border: 0;
+			cursor: pointer;
+
+			&:focus {
+				outline: none;
+			}
+			
+			p {
+				font-weight: bold;
+				margin-top: 15px;
+				font-size: 20px;
+			}
+		}
+	}
+}
+
+@media (max-width: 768px) { 
+	.subHeader {
+		width: 90%;
+
+		i {
+			font-size: 17px;
+		}
+	}
+}
