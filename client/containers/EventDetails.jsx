@@ -49,9 +49,11 @@ class EventDetailsWrapper extends React.Component {
           <EventDetails event={this.props.event} />
           <div style={{ margin: '40px 0 25px 0', textAlign: 'center' }}>
             <h2> Related Events </h2>
-            <p className={this.props.hasMore ? 'hide' : ''}>Sorry, no more results</p>
           </div>
           <RelEventList />
+          <div style={{ textAlign: 'center' }}>
+            <p className={this.props.hasMore ? 'hide' : ''}>Sorry, no more results</p>
+          </div>
         </div>
       );
   }
