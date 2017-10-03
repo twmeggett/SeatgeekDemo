@@ -1,9 +1,10 @@
 import React from 'react'
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
-import { fetchEvent, requestEvent } from '../actions/api';
-import Header from '../components/Header.jsx';
-import EventDetails from '../components/EventDetails.jsx';
+import { fetchEvent, requestEvent } from '../actions/api'
+import Header from '../components/Header.jsx'
+import EventDetails from '../components/EventDetails.jsx'
+import RelEventList from './RelEventList.jsx'
 
 const mapStateToProps = state => {
   return {
@@ -44,7 +45,11 @@ class EventDetailsWrapper extends React.Component {
           <Header
             info={<span><i className="fa fa-arrow-circle-left" aria-hidden="true"></i>Back</span>}
             onHeaderClick={this.props.onHeaderClick} />
-          <EventDetails {...this.props} />
+          <EventDetails event={this.props.event} />
+          <div style={{ margin: '40px 0 25px 0' }}>
+            <h2 style={{ textAlign: 'center' }}> Related Events </h2>
+          </div>
+          <RelEventList />
         </div>
       );
   }

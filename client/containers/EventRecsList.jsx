@@ -3,14 +3,13 @@ import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import windowScrollBottom from '../util/windowScrollBottom.js'
 import * as actions from '../actions/api'
-import Header from '../components/Header.jsx'
-import SubHeader from '../components/SubHeader.jsx'
 import Events from '../components/Events.jsx'
 import LoadingIcon from '../components/Loading-Icon.jsx'
 
 const mapStateToProps = state => {
   return {
-    events: state.api.events,
+    recEvents: state.api.recEvents,
+    event: state.api.event,
     page: state.api.page,
     location: state.api.location,
     hasMore: state.api.hasMore,
@@ -20,8 +19,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchEvents: (page, latLon) => {
-      dispatch(actions.fetchEvents(page, latLon))
+    fetchRecommendations: (page, latLon, recId) => {
+      dispatch(actions.fetchEvents(page, latLon, recId))
     },
     requestEvents: () => {
       dispatch(actions.requestEvents())
@@ -29,35 +28,22 @@ const mapDispatchToProps = dispatch => {
     onEventClick: id => {
       dispatch(push(`event/${id}`))
     },
-    onHeaderClick: () => {
-      dispatch(push('/'))
-    },
-    onPlaceSelected: (place) => {
-      const latLon = place ? {
-        lat: place.geometry.location.lat(),
-        lon: place.geometry.location.lng(),
-      } : null;
-      dispatch(actions.clearEvents())
-      dispatch(actions.updateLocation(latLon))
-      dispatch(actions.fetchEvents(1, latLon))
-    },
   }
 }
 
-class EventsListWrapper extends React.Component {
+class EventsRecsWrapper extends React.Component {
   componentDidMount() {
     if (this.props.events.length === 0) {
       this.props.requestEvents();
       setTimeout(() => {
-        this.props.fetchEvents(this.props.page, this.props.location)
+        this.props.fetchRecommendations(this.props.page, this.props.location, this.props.event.id)
       }, 2500);
     }
     windowScrollBottom.addEvent(() => {
       if (this.props.hasMore && !this.props.isFetching) {
-        console.log(this.props)
         this.props.requestEvents();
         setTimeout(() => {
-          this.props.fetchEvents(this.props.page, this.props.location)
+          this.props.fetchRecommendations(this.props.page, this.props.location, this.props.event.id)
         }, 1500);
       }
     })
@@ -67,19 +53,9 @@ class EventsListWrapper extends React.Component {
     windowScrollBottom.removeEvent();
   }
 
-  onPlaceSelected(place) {
-    this.props.onPlaceSelected(place)
-  }
-
-  onCurrentLocation() {
-    this.props.onPlaceSelected(null)
-  }
-
   render() {
       return (
         <div>
-          <Header info={'SeatGeek Events Page'} onHeaderClick={this.props.onHeaderClick} />
-          <SubHeader onPlaceSelected={this.onPlaceSelected.bind(this)} onCurrentLocation={this.onCurrentLocation.bind(this)} />
           <Events {...this.props} />
           <LoadingIcon hide={this.props.isFetching ? false : true} />
         </div>
@@ -90,6 +66,6 @@ class EventsListWrapper extends React.Component {
 const EventsList = connect(
   mapStateToProps,
   mapDispatchToProps
-)(EventsListWrapper)
+)(EventsRecsWrapper)
 
 export default EventsList

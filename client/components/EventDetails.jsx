@@ -33,12 +33,16 @@ const Event = ({ event }) => {
                 </a>
                 <div className="info-content">
                   <p className="venue">
-                    <i className="fa fa-building-o" aria-hidden="true"></i>
-                    {event.venue.name}
+                    <a href={event.venue.url} target="_blank">
+                      <i className="fa fa-building-o" aria-hidden="true"></i>
+                      {event.venue.name}
+                    </a>
                   </p>
                   <p className="location">
-                    <i className="fa fa-map-marker" aria-hidden="true"></i>
-                    {event.venue.display_location}
+                    <a href={`https://www.google.com/maps/place/${event.venue.address} ${event.venue.city} ${event.venue.postal_code}`} target="_blank">
+                      <i className="fa fa-map-marker" aria-hidden="true"></i>
+                      {event.venue.address}, {event.venue.city} {event.venue.postal_code}
+                    </a>
                   </p>
                   <p className="date">
                     <i className="fa fa-calendar-o" aria-hidden="true"></i>
@@ -78,14 +82,13 @@ const Event = ({ event }) => {
             <div className="col-md-1 col-lg-2"></div>
 
             <div className="col-xs-12 col-md-5 col-lg-4 map">
-              <h2>Location</h2>
               <a href={`https://www.google.com/maps/place/${event.venue.name} ${event.venue.display_location}`} target="_blank">
                 <img src={staticMapSrc(event)} />
               </a>
             </div>
 
-            <div className="col-xs-12 col-md-5 offset-md-2 col-lg-4 offset-lg-1 performers">
-              <h2>Performers</h2>
+            <div className="col-xs-12 col-md-5 offset-md-2 col-lg-4 performers">
+              <h2>Youtube Search</h2>
               {event.performers.map((performer, index) => (
                 <YouTubeLink key={'performer' + index} name={performer.name} />
               ))}

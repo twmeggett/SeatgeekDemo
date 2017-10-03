@@ -28,12 +28,15 @@ const middleware = applyMiddleware(
 	routerMiddleware(history)
 );
 
-const store = createStore(
-	reducers, /* preloadedState, */
-	compose(
+const composeEnhancers =
+	window.navigator.userAgent.includes('Chrome') ? compose(
 		middleware,
 		window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-	)
+	) : compose(middleware);
+
+const store = createStore(
+	reducers, /* preloadedState, */
+	composeEnhancers
 );
 
 render(

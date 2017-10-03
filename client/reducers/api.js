@@ -2,13 +2,19 @@ import * as actions from '../actions/api.js';
 
 const defaultState = {
 	isFetching: false,
-	events: [],
 	event: {},
+	events: [],
+	relEvents: [],
+	modalEvents: [],
 	page: 1,
+	relPage: 1,
+	modalPage: 1,
 	hasMore: true,
+	relHasMore: true,
+	modalHasMore: true,
 	location: {
-		lat: 40.7127837,
-		lon: -74.00594130000002,
+		lat: 38.9072,
+		lon: -77.0369,
 	},
 }
 
@@ -24,7 +30,38 @@ export default function api(state = defaultState, action) {
 			...state,
 			isFetching: false,
 			events: state.events.concat(action.events),
-			page: state.page + 1,
+			page: action.page + 1,
+			hasMore: action.limit > state.events.concat(action.events).length,
+		}
+	case actions.REL_RECEIVE_EVENTS:
+		return {
+			...state,
+			isFetching: false,
+			relEvents: state.relEvents.concat(action.events),
+			relPage: state.relPage + 1,
+			relHasMore: action.limit > state.relEvents.concat(action.events).length,
+		}
+	case actions.MODAL_RECEIVE_EVENTS:
+		return {
+			...state,
+			isFetching: false,
+			modalEvents: state.modalEvents.concat(action.events),
+			modalPage: action.modalPage + 1,
+			modalHasMore: action.limit > state.modalEvents.concat(action.events).length,
+		}
+	case actions.RESET_REL_EVENTS:
+		return {
+			...state,
+			relEvents: [],
+			relPage: 1,
+			relHasMore: true,
+		}
+	case actions.RESET_MODAL_EVENTS:
+		return {
+			...state,
+			modalEvents: [],
+			modalPage: 1,
+			modalHasMore: true,
 		}
 	case actions.REQUEST_EVENT:
 		return {
@@ -38,16 +75,12 @@ export default function api(state = defaultState, action) {
 			isFetching: false,
 			event: action.event,
 		}
-	case actions.LIMIT_RECEIVED:
-		return {
-			...state,
-			hasMore: false,
-		}
 	case actions.CLEAR_EVENTS:
 		return {
 			...state,
 			events: [],
 			page: 1,
+			hasMore: true,
 		}
 	case actions.UPDATE_LOCATION:
 		return {

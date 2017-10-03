@@ -1,10 +1,12 @@
 @import "./base.less";
 
 .subHeader {
+	@-sub-header-height: 40px;
 	width: 80%;
-	height: 40px;
+	height: @-sub-header-height;
 	margin: 40px auto 70px auto;
 	border-radius: 10px;
+
 	border: 2px solid @header-color;
 	padding: 0 5px;
 
@@ -12,6 +14,7 @@
 		font-size: 20px;
 		margin-right: 5px;
 		float: right;
+		color:  @header-color;
 	}
 
 	input {
@@ -25,10 +28,13 @@
 		text-align: center;
 
 		button {
-			background: none;
-			color: @header-color;
+			background: @alt-header-color;
+			color: white;
 			border: 0;
+			margin-top: 25px;
 			cursor: pointer;
+			border-radius: 10px;
+			height: @-sub-header-height;
 
 			&:focus {
 				outline: none;
@@ -36,8 +42,7 @@
 			
 			p {
 				font-weight: bold;
-				margin-top: 15px;
-				font-size: 20px;
+				font-size: 17px;
 			}
 		}
 	}

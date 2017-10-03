@@ -9,18 +9,20 @@ export function requestEvents() {
 	}
 }
 
-export const RECEIVE_EVENTS = 'RECEIVE_EVENTS';
-export function receiveEvents(events) {
-	return {
-		type: RECEIVE_EVENTS,
-		events,
-	}
-}
-
 export const REQUEST_EVENT = 'REQUEST_EVENT';
 export function requestEvent() {
 	return {
 		type: REQUEST_EVENT,
+	}
+}
+
+export const RECEIVE_EVENTS = 'RECEIVE_EVENTS';
+export function receiveEvents(events, limit, page) {
+	return {
+		type: RECEIVE_EVENTS,
+		events,
+		limit,
+		page,
 	}
 }
 
@@ -32,10 +34,37 @@ export function receiveEvent(event) {
 	}
 }
 
-export const LIMIT_RECEIVED = 'LIMIT_RECEIVED';
-export function limitReceived() {
+export const REL_RECEIVE_EVENTS = 'REL_RECEIVE_EVENTS';
+export function relReceiveEvents(events, limit, page) {
 	return {
-		type: LIMIT_RECEIVED,
+		type: REL_RECEIVE_EVENTS,
+		events,
+		limit,
+		page,
+	}
+}
+
+export const MODAL_RECEIVE_EVENTS = 'MODAL_RECEIVE_EVENTS';
+export function modalReceiveEvents(events, limit, page) {
+	return {
+		type: MODAL_RECEIVE_EVENTS,
+		events,
+		limit,
+		page,
+	}
+}
+
+export const RESET_REL_EVENTS = 'RESET_REL_EVENTS';
+export function resetRelEvents() {
+	return {
+		type: RESET_REL_EVENTS,
+	}
+}
+
+export const RESET_MODAL_EVENTS = 'RESET_MODAL_EVENTS';
+export function resetModalEvents() {
+	return {
+		type: RESET_MODAL_EVENTS,
 	}
 }
 
@@ -54,16 +83,23 @@ export function updateLocation(location) {
 	}
 }
 
-export function fetchEvents(page, latLon) {
+export function resetAllEvents() {
+	return (dispatch) => {
+		dispatch(clearEvents())
+		dispatch(resetRelEvents())
+		dispatch(resetModalEvents())
+	}
+}
+
+export function fetchEvents(page, latLon, relatedId, modalEvs) {
 	const CLIENT_ID = 'NTMxNDQzOXwxNDcwMDkxNzg4';
-	const url = 'https://api.seatgeek.com/2/events';
+	const url = `https://api.seatgeek.com/2/${relatedId ? 'recommendations' : 'events'}`;
 	const range = 10;
 	let queryParams = {
 		page,
 		client_id: CLIENT_ID,
 		range: `${range}mi`,
 		'datetime_utc.gte': removeTimeZoneFromISO(new Date()),
-		'listing_count.gt': 0,
 	}
 
 	if (latLon && typeof latLon === 'object') {
@@ -72,8 +108,11 @@ export function fetchEvents(page, latLon) {
 		queryParams = { ...queryParams, geoip: true }
 	}
 
+	if (relatedId) {
+		queryParams = { ...queryParams, 'events.id': relatedId }
+	}
+
 	return (dispatch) => {
-	    dispatch(requestEvents())
 	    return fetch(attachQueryParams(url, queryParams))
 			.then(
 				response => response.json(),
@@ -82,10 +121,16 @@ export function fetchEvents(page, latLon) {
 			.then((json) => {
 				if (json) {
 					console.log(json)
-					if (json.meta.total === json.events.length) {
-						dispatch(limitReceived())
+					if (modalEvs) {
+						dispatch(modalReceiveEvents(json.recommendations, json.meta.total, json.meta.page))
+					} else if (relatedId) {
+						const events = json.recommendations.map(function ( item ) {
+							return item.event;
+						})
+						dispatch(relReceiveEvents(events, json.meta.total, json.meta.page))
+					} else {
+						dispatch(receiveEvents(json.events, json.meta.total, json.meta.page))
 					}
-					dispatch(receiveEvents(json.events))
 				}
 	    })
 	}
@@ -99,7 +144,6 @@ export function fetchEvent(id) {
 	}
 
 	return (dispatch) => {
-	    dispatch(requestEvent())
 	    return fetch(attachQueryParams(url, queryParams))
 			.then(
 				response => response.json(),

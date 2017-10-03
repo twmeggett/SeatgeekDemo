@@ -10,7 +10,7 @@ const Event = ({ event, onEventClick }) => (
         <p className="location">{event.venue.display_location}</p>
       </div>
     </div>
-    <img src={event.performers[0].image} />
+    <img src={event.performers[0].image ? event.performers[0].image : 'http://vollrath.com/ClientCss/images/VollrathImages/No_Image_Available.jpg'} />
     <p className="date">{formatDisplayDate(event.datetime_local)}</p>
   </div>
 )
