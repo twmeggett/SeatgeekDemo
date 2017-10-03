@@ -31,7 +31,7 @@ export default function api(state = defaultState, action) {
 			isFetching: false,
 			events: state.events.concat(action.events),
 			page: action.page + 1,
-			hasMore: action.limit > state.events.concat(action.events).length,
+			hasMore: action.limit > state.events.concat(action.events).length || action.events.length !== 0,
 		}
 	case actions.REL_RECEIVE_EVENTS:
 		return {
@@ -39,7 +39,7 @@ export default function api(state = defaultState, action) {
 			isFetching: false,
 			relEvents: state.relEvents.concat(action.events),
 			relPage: state.relPage + 1,
-			relHasMore: action.limit > state.relEvents.concat(action.events).length,
+			relHasMore: action.limit > state.relEvents.concat(action.events).length || action.events.length !== 0,
 		}
 	case actions.MODAL_RECEIVE_EVENTS:
 		return {
@@ -47,7 +47,7 @@ export default function api(state = defaultState, action) {
 			isFetching: false,
 			modalEvents: state.modalEvents.concat(action.events),
 			modalPage: action.modalPage + 1,
-			modalHasMore: action.limit > state.modalEvents.concat(action.events).length,
+			modalHasMore: action.limit > state.modalEvents.concat(action.events).length || action.events.length !== 0,
 		}
 	case actions.RESET_REL_EVENTS:
 		return {

@@ -46,14 +46,14 @@ const mapDispatchToProps = dispatch => {
 
 class EventsListWrapper extends React.Component {
   componentDidMount() {
-    if (this.props.events.length === 0) {
+    if (this.props.hasMore && this.props.events.length === 0 && !this.props.isFetching) {
       this.props.requestEvents();
       setTimeout(() => {
         this.props.fetchEvents(this.props.page, this.props.location)
       }, 2500);
     }
     windowScrollBottom.addEvent(() => {
-      if (this.props.hasMore && !this.props.isFetching) {
+      if (this.props.hasMore && this.props.events.length !== 0 && !this.props.isFetching) {
         console.log(this.props)
         this.props.requestEvents();
         setTimeout(() => {

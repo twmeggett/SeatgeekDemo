@@ -9,6 +9,7 @@ import RelEventList from './RelEventList.jsx'
 const mapStateToProps = state => {
   return {
     event: state.api.event,
+    hasMore: state.api.relHasMore,
   }
 }
 
@@ -46,8 +47,9 @@ class EventDetailsWrapper extends React.Component {
             info={<span><i className="fa fa-arrow-circle-left" aria-hidden="true"></i>Back</span>}
             onHeaderClick={this.props.onHeaderClick} />
           <EventDetails event={this.props.event} />
-          <div style={{ margin: '40px 0 25px 0' }}>
-            <h2 style={{ textAlign: 'center' }}> Related Events </h2>
+          <div style={{ margin: '40px 0 25px 0', textAlign: 'center' }}>
+            <h2> Related Events </h2>
+            <p className={this.props.hasMore ? 'hide' : ''}>Sorry, no more results</p>
           </div>
           <RelEventList />
         </div>

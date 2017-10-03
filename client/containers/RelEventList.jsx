@@ -46,7 +46,7 @@ class RelEventsListWrapper extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!nextProps.isFetching && nextProps.events.length === 0 && nextProps.event.id) {
+    if (nextProps.hasMore && !nextProps.isFetching && nextProps.events.length === 0 && nextProps.event.id) {
       this.props.requestEvents();
       setTimeout(() => {
         this.props.fetchEvents(this.props.page, this.props.location, nextProps.event.id)
@@ -75,7 +75,7 @@ class RelEventsListWrapper extends React.Component {
       return (
         <div>
           <Events events={events} onEventClick={this.props.onEventClick} />
-          <LoadingIcon hide={this.props.isFetching ? false : true} />
+          <LoadingIcon hide={this.props.isFetching && this.props.hasMore ? false : true} />
         </div>
       );
   }
