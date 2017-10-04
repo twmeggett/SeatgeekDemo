@@ -38,7 +38,9 @@ const mapDispatchToProps = dispatch => {
         lon: place.geometry.location.lng(),
       } : null;
       dispatch(actions.updateLocation(latLon))
-      dispatch(actions.fetchEvents(1, latLon))
+      setTimeout(() => {
+        dispatch(actions.fetchEvents(1, latLon))
+      }, 2500);
     },
   }
 }

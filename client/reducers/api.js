@@ -56,6 +56,7 @@ export default function api(state = defaultState, action) {
 	case actions.UPDATE_LOCATION:
 		return {
 			...state,
+			isFetching: true,
 			location: action.location,
 			hasMore: true,
 			events: [],
