@@ -25,13 +25,9 @@ const mapDispatchToProps = dispatch => {
     requestEvents: () => {
       dispatch(actions.requestEvents())
     },
-    resetEvents: () => {
-      dispatch(actions.resetRelEvents())
-    },
     onEventClick: id => {
       dispatch(push(`/event/${id}`))
       dispatch(actions.requestEvent())
-      dispatch(actions.resetAllEvents())
       document.body.scrollTop = document.documentElement.scrollTop = 0;
       setTimeout(() => {
         dispatch(actions.fetchEvent(id))
@@ -41,10 +37,6 @@ const mapDispatchToProps = dispatch => {
 }
 
 class RelEventsListWrapper extends React.Component {
-  componentDidMount() {
-    this.props.resetEvents();
-  }
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.hasMore && !nextProps.isFetching && nextProps.events.length === 0 && nextProps.event.id) {
       this.props.requestEvents();

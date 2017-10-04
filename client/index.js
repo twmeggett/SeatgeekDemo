@@ -6,7 +6,7 @@ import { createLogger } from 'redux-logger'
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 
-import createHistory from 'history/createBrowserHistory';
+import createHistory from 'history/createHashHistory';
 import { Route } from 'react-router'
 import { ConnectedRouter, routerMiddleware, push } from 'react-router-redux'
 

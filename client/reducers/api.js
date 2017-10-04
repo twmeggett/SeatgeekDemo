@@ -5,13 +5,10 @@ const defaultState = {
 	event: {},
 	events: [],
 	relEvents: [],
-	modalEvents: [],
 	page: 1,
 	relPage: 1,
-	modalPage: 1,
 	hasMore: true,
 	relHasMore: true,
-	modalHasMore: true,
 	location: {
 		lat: 38.9072,
 		lon: -77.0369,
@@ -41,33 +38,14 @@ export default function api(state = defaultState, action) {
 			relPage: state.relPage + 1,
 			relHasMore: action.limit > state.relEvents.concat(action.events).length || action.events.length !== 0,
 		}
-	case actions.MODAL_RECEIVE_EVENTS:
-		return {
-			...state,
-			isFetching: false,
-			modalEvents: state.modalEvents.concat(action.events),
-			modalPage: action.modalPage + 1,
-			modalHasMore: action.limit > state.modalEvents.concat(action.events).length || action.events.length !== 0,
-		}
-	case actions.RESET_REL_EVENTS:
-		return {
-			...state,
-			relEvents: [],
-			relPage: 1,
-			relHasMore: true,
-		}
-	case actions.RESET_MODAL_EVENTS:
-		return {
-			...state,
-			modalEvents: [],
-			modalPage: 1,
-			modalHasMore: true,
-		}
 	case actions.REQUEST_EVENT:
 		return {
 			...state,
 			isFetching: true,
 			event: {},
+			relEvents: [],
+			relPage: 1,
+			relHasMore: true,
 		}
 	case actions.RECEIVE_EVENT:
 		return {
@@ -75,18 +53,13 @@ export default function api(state = defaultState, action) {
 			isFetching: false,
 			event: action.event,
 		}
-	case actions.CLEAR_EVENTS:
-		return {
-			...state,
-			events: [],
-			page: 1,
-			hasMore: true,
-		}
 	case actions.UPDATE_LOCATION:
 		return {
 			...state,
 			location: action.location,
 			hasMore: true,
+			events: [],
+			page: 1,
 		}
     default:
 		return state

@@ -44,37 +44,6 @@ export function relReceiveEvents(events, limit, page) {
 	}
 }
 
-export const MODAL_RECEIVE_EVENTS = 'MODAL_RECEIVE_EVENTS';
-export function modalReceiveEvents(events, limit, page) {
-	return {
-		type: MODAL_RECEIVE_EVENTS,
-		events,
-		limit,
-		page,
-	}
-}
-
-export const RESET_REL_EVENTS = 'RESET_REL_EVENTS';
-export function resetRelEvents() {
-	return {
-		type: RESET_REL_EVENTS,
-	}
-}
-
-export const RESET_MODAL_EVENTS = 'RESET_MODAL_EVENTS';
-export function resetModalEvents() {
-	return {
-		type: RESET_MODAL_EVENTS,
-	}
-}
-
-export const CLEAR_EVENTS = 'CLEAR_EVENTS';
-export function clearEvents() {
-	return {
-		type: CLEAR_EVENTS,
-	}
-}
-
 export const UPDATE_LOCATION = 'UPDATE_LOCATION';
 export function updateLocation(location) {
 	return {
@@ -83,15 +52,7 @@ export function updateLocation(location) {
 	}
 }
 
-export function resetAllEvents() {
-	return (dispatch) => {
-		dispatch(clearEvents())
-		dispatch(resetRelEvents())
-		dispatch(resetModalEvents())
-	}
-}
-
-export function fetchEvents(page, latLon, relatedId, modalEvs) {
+export function fetchEvents(page, latLon, relatedId) {
 	const CLIENT_ID = 'NTMxNDQzOXwxNDcwMDkxNzg4';
 	const url = `https://api.seatgeek.com/2/${relatedId ? 'recommendations' : 'events'}`;
 	const range = 10;
@@ -121,9 +82,7 @@ export function fetchEvents(page, latLon, relatedId, modalEvs) {
 			.then((json) => {
 				if (json) {
 					console.log(json)
-					if (modalEvs) {
-						dispatch(modalReceiveEvents(json.recommendations, json.meta.total, json.meta.page))
-					} else if (relatedId) {
+					if (relatedId) {
 						const events = json.recommendations.map(function ( item ) {
 							return item.event;
 						})
