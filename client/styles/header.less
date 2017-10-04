@@ -3,7 +3,7 @@
 .header {
 	background-color: @header-color;	
 	color: white;
-	padding-left: 55px;
+	padding-left: 95px;
 	padding-top: 5px;
 	min-height: 40px;
 	margin-bottom: -8px;
@@ -22,12 +22,24 @@
 	i {
 		margin-right: 5px;
 	}
+
+	.home {
+		float: right;
+	}
 }
 
 @media (max-width: 768px) { 
 	.header {
+		padding-left: 10px;
+
 		h2 {
 			font-size: 21px;
 		}
+	}
+}
+
+@media only screen and (min-width : 768px) and (max-width : 992px) { 
+	.header {
+		padding-left: 60px;
 	}
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { goBack } from 'react-router-redux'
+import { goBack, push } from 'react-router-redux'
 import { fetchEvent, requestEvent } from '../actions/api'
 import Header from '../components/Header.jsx'
 import EventDetails from '../components/EventDetails.jsx'
@@ -23,6 +23,9 @@ const mapDispatchToProps = dispatch => {
     },
     onHeaderClick: () => {
       dispatch(goBack())
+    },
+    onHomeClick: () => {
+      dispatch(push('/'))
     },
   }
 }
@@ -55,6 +58,7 @@ class EventDetailsWrapper extends React.Component {
         <div>
           <Header
             info={<span><i className="fa fa-arrow-circle-left" aria-hidden="true"></i>Back</span>}
+            onHomeClick={this.props.onHomeClick}
             onHeaderClick={this.props.onHeaderClick} />
           <EventDetails event={this.props.event} />
           <div className={!this.props.event.id ? 'hide' : ''}>
