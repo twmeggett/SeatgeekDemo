@@ -60,8 +60,8 @@ class RelEventsListWrapper extends React.Component {
   }
 
   render() {
-      const events = this.props.events.filter(function (item, index) {
-        return index !== 0
+      const events = this.props.events.filter((item) => {
+        return item.id !== this.props.event.id
       })
 
       return (
