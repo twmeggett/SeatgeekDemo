@@ -23,8 +23,10 @@ describe('receiveEvents', () => {
     const expectedAction = {
       type: actions.RECEIVE_EVENTS,
       events: testEvents,
+      limit: 10,
+      page: 2,
     }
-    expect(actions.receiveEvents(testEvents)).toEqual(expectedAction)
+    expect(actions.receiveEvents(testEvents, 10, 2)).toEqual(expectedAction)
   })
 })
 
@@ -48,24 +50,6 @@ describe('receiveEvent', () => {
   })
 })
 
-describe('limitReceived', () => {
-  it('should create an action to alert that limit has been received', () => {
-    const expectedAction = {
-      type: actions.LIMIT_RECEIVED,
-    }
-    expect(actions.limitReceived()).toEqual(expectedAction)
-  })
-})
-
-describe('clearEvents', () => {
-  it('should create an action to clear the events', () => {
-    const expectedAction = {
-      type: actions.CLEAR_EVENTS,
-    }
-    expect(actions.clearEvents()).toEqual(expectedAction)
-  })
-})
-
 describe('updateLocation', () => {
   it('should create an action to update location', () => {
     const location = { lat: 10, lon: 10 }
@@ -86,6 +70,7 @@ describe('fetchEvents', () => {
 	const testEvents = [{ test: true }, { test: true }, { test: true }]
   const meta = {
     total: 100,
+    page: 1,
   }
 	const CLIENT_ID = 'NTMxNDQzOXwxNDcwMDkxNzg4';
 	const url = 'https://api.seatgeek.com/2';
@@ -95,7 +80,6 @@ describe('fetchEvents', () => {
 		client_id: CLIENT_ID,
 		range: `${range}mi`,
 		'datetime_utc.gte': removeTimeZoneFromISO(new Date()),
-		'listing_count.gt': 0,
 		geoip: true,
 	}
 
@@ -105,10 +89,9 @@ describe('fetchEvents', () => {
       .reply(200, { events: testEvents, meta })
 
     const expectedActions = [
-      { type: actions.REQUEST_EVENTS },
-      { type: actions.RECEIVE_EVENTS, events: testEvents },
+      { type: actions.RECEIVE_EVENTS, events: testEvents, limit: meta.total, page: meta.page },
     ]
-    const store = mockStore({ isFetching: false, events: [] })
+    const store = mockStore({ isFetching: false, events: [], page: 1, hasMore: true })
 
     return store.dispatch(actions.fetchEvents(1)).then(() => {
       // return of async actions
@@ -136,7 +119,6 @@ describe('fetchEvent', () => {
       .reply(200, testEvent)
 
     const expectedActions = [
-      { type: actions.REQUEST_EVENT },
       { type: actions.RECEIVE_EVENT, event: testEvent },
     ]
     const store = mockStore({ isFetching: false, event: {} })

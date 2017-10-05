@@ -28,7 +28,7 @@ export default function api(state = defaultState, action) {
 			isFetching: false,
 			events: state.events.concat(action.events),
 			page: action.page + 1,
-			hasMore: action.limit > state.events.concat(action.events).length || action.events.length !== 0,
+			hasMore: action.limit > state.events.concat(action.events).length && action.events.length !== 0,
 		}
 	case actions.REL_RECEIVE_EVENTS:
 		return {
@@ -36,7 +36,7 @@ export default function api(state = defaultState, action) {
 			isFetching: false,
 			relEvents: state.relEvents.concat(action.events),
 			relPage: state.relPage + 1,
-			relHasMore: action.limit > state.relEvents.concat(action.events).length || action.events.length !== 0,
+			relHasMore: action.limit > state.relEvents.concat(action.events).length && action.events.length !== 0,
 		}
 	case actions.REQUEST_EVENT:
 		return {

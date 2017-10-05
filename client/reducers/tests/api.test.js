@@ -3,11 +3,17 @@ import * as actions from '../../actions/api'
 
 const defaultState = {
   isFetching: false,
-  events: [],
   event: {},
+  events: [],
+  relEvents: [],
   page: 1,
+  relPage: 1,
   hasMore: true,
-  location: null,
+  relHasMore: true,
+  location: {
+    lat: 38.9072,
+    lon: -77.0369,
+  },
 }
 
 describe('api reducer', () => {
@@ -35,10 +41,13 @@ describe('api reducer', () => {
           isFetching: true,
           events: [ { test: true } ],
           page: 2,
+          hasMore: true,
         },
         {
           type: actions.RECEIVE_EVENTS,
           events: [ { test: true }, { test: true } ],
+          page: 2,
+          limit: 3,
         }
       )
     ).toEqual({
@@ -46,6 +55,33 @@ describe('api reducer', () => {
         isFetching: false,
         events: [ { test: true }, { test: true }, { test: true } ],
         page: 3,
+        hasMore: false,
+     })
+  })
+
+  it('should handle REL_RECEIVE_EVENTS', () => {
+    expect(
+      reducer(
+        {
+          ...defaultState,
+          isFetching: true,
+          relEvents: [ { test: true } ],
+          relPage: 2,
+          relHasMore: true,
+        },
+        {
+          type: actions.REL_RECEIVE_EVENTS,
+          events: [ { test: true }, { test: true } ],
+          page: 2,
+          limit: 3,
+        }
+      )
+    ).toEqual({
+        ...defaultState,
+        isFetching: false,
+        relEvents: [ { test: true }, { test: true }, { test: true } ],
+        relPage: 3,
+        relHasMore: false,
      })
   })
 
@@ -79,45 +115,13 @@ describe('api reducer', () => {
      })
   })
 
-  it('should handle LIMIT_RECEIVED', () => {
-    expect(
-      reducer(
-        defaultState,
-        {
-          type: actions.LIMIT_RECEIVED,
-        }
-      )
-    ).toEqual({
-      ...defaultState,
-      hasMore: false,
-    })
-  })
-
-  it('should handle CLEAR_EVENTS', () => {
-    expect(
-      reducer(
-        {
-          ...defaultState,
-          events: [ { test: true }, { test: true }, { test: true } ],
-          page: 2,
-        },
-        {
-          type: actions.CLEAR_EVENTS,
-        }
-      )
-    ).toEqual({
-      ...defaultState,
-      events: [],
-      page: 1,
-    })
-  })
-
   it('should handle UPDATE_LOCATION', () => {
     expect(
       reducer(
         {
           ...defaultState,
           hasMore: false,
+          isFetching: false,
         },
         {
           type: actions.UPDATE_LOCATION,
@@ -128,6 +132,7 @@ describe('api reducer', () => {
       ...defaultState,
       location: { lat: 10, long: 10 },
       hasMore: true,
+      isFetching: true,
     })
   })
 })
