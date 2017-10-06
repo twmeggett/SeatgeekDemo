@@ -22,6 +22,9 @@ npm install
 
 npm run start
 
+## To Run Dev
+
+npm run dev
 
 ## To Run Tests -
 
