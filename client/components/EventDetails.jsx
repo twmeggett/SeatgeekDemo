@@ -17,7 +17,7 @@ const Event = ({ event }) => {
           <img src={event.performers[0].image} className="background-img" />
           <div className="row">
 
-            <div className="col-md-1 col-lg-2"></div>
+            <div className="col-md-1 col-lg-2 hide-xs"></div>
 
             <div className="col-xs-12 col-md-5 col-lg-4 images">
               <a href={event.url} target="_blank">
@@ -52,9 +52,9 @@ const Event = ({ event }) => {
               </div>
             </div>
 
-            <div className="col-md-1 col-lg-2"></div>
+            <div className="col-md-1 col-lg-2 hide-xs"></div>
 
-            <div className="col-md-1 col-lg-2"></div>
+            <div className="col-md-1 col-lg-2 hide-xs"></div>
 
             <div className="col-xs-12 col-md-5 col-lg-4">
               <div className="social-container">
@@ -79,7 +79,7 @@ const Event = ({ event }) => {
         <div className="container sub-info">
           <div className="row">
 
-            <div className="col-md-1 col-lg-2"></div>
+            <div className="col-md-1 col-lg-2 hide-xs"></div>
 
             <div className="col-xs-12 col-md-5 col-lg-4 map">
               <a href={`https://www.google.com/maps/place/${event.venue.name} ${event.venue.display_location}`} target="_blank">
