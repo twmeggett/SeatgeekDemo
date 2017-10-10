@@ -29,7 +29,7 @@ const middleware = applyMiddleware(
 );
 
 const composeEnhancers =
-	window.navigator.userAgent.includes('Chrome') && !/Mobi/i.test(navigator.userAgent) && !/Android/i.test(navigator.userAgent) ? compose(
+	window.navigator.userAgent.includes('Chrome') && !/Mobi/i.test(navigator.userAgent) && !/Android/i.test(navigator.userAgent) && window.__REDUX_DEVTOOLS_EXTENSION__ ? compose(
 		middleware,
 		window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 	) : compose(middleware);
