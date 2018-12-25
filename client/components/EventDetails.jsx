@@ -8,7 +8,7 @@ import NoImage from '../images/no_image.jpg';
 import '../styles/event-details-style.less'
 require('font-awesome-webpack');
 
-//offsets aren't working in bootstrap for some reason 
+//offsets aren't working in bootstrap for some reason
 const Event = ({ event }) => {
   if (event.id) {
     return (
@@ -76,24 +76,12 @@ const Event = ({ event }) => {
           </div>
         </div>
 
-        <div className="container sub-info">
-          <div className="row">
-
-            <div className="col-md-1 col-lg-2 hide-xs"></div>
-
-            <div className="col-xs-12 col-md-5 col-lg-4 map">
-              <a href={`https://www.google.com/maps/place/${event.venue.name} ${event.venue.display_location}`} target="_blank">
-                <img src={staticMapSrc(event)} />
-              </a>
-            </div>
-
-            <div className="col-xs-12 col-md-5 offset-md-2 col-lg-4 performers">
-              <h2>Youtube Search</h2>
-              {event.performers.map((performer, index) => (
-                <YouTubeLink key={'performer' + index} name={performer.name} />
-              ))}
-            </div>
-
+        <div className="sub-info">
+          <div className="performers">
+            <h2>Youtube Search</h2>
+            {event.performers.map((performer, index) => (
+              <YouTubeLink key={'performer' + index} name={performer.name} />
+            ))}
           </div>
         </div>
       </div>
