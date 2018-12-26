@@ -1,5 +1,5 @@
 # Seatgeek Demo
-See live demo here https://seat-geek-demo.herokuapp.com/#/ 
+See live demo here https://twmeggett.github.io/SeatgeekDemo/#/
 
 A simple demo featuring: 
 
